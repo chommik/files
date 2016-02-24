@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from collections import namedtuple
-from lib.path import FSObject
+
+from typing import Tuple, Iterable
 
 
 class VFSObject(object):
@@ -16,19 +16,19 @@ class VFSObject(object):
 
 
 class VirtualFS(object):
-    def exists(self, path: str):
+    def exists(self, path: str) -> bool:
         raise NotImplementedError
 
-    def isdir(self, path: str):
+    def isdir(self, path: str) -> bool:
         raise NotImplementedError
 
-    def isfile(self, path: str):
+    def isfile(self, path: str) -> bool:
         raise NotImplementedError
 
     def get_object(self, path: str) -> VFSObject:
         raise NotImplementedError
 
-    def list(self, path: str) -> tuple:
+    def list(self, path: str) -> Tuple[Iterable[str], Iterable[str]]:
         """
         Must return tuple in form: (subdirectories, subfiles)
         """

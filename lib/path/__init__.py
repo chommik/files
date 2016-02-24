@@ -9,7 +9,7 @@ class Path(object):
         self.fs = fs
         self.vfs = vfs
 
-    def is_object(self, obj_name):
+    def exists(self, obj_name):
         return self.fs.exists(obj_name) or self.vfs.exists(obj_name)
 
     def fetch_object(self, obj_name) -> FSObject:
