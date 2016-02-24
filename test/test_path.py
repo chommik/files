@@ -26,15 +26,15 @@ class PathTest(unittest.TestCase):
         self.path = Path(self.dummyfs, self.dummyvfs)
 
     def testIsObject_NonExistent(self):
-        self.assertFalse(self.path_mocked.is_object("asdf"))
+        self.assertFalse(self.path_mocked.exists("asdf"))
 
     def testIsObject_ExistsInFS(self):
         self.fs.exists.return_value = True
-        self.assertTrue(self.path_mocked.is_object("asdf"))
+        self.assertTrue(self.path_mocked.exists("asdf"))
 
     def testIsObject_ExistsInVFS(self):
         self.vfs.exists.return_value = True
-        self.assertTrue(self.path_mocked.is_object("asdf"))
+        self.assertTrue(self.path_mocked.exists("asdf"))
 
     def testFetchObject_NonExistent(self):
         self.assertRaises(FileNotFoundError, self.path_mocked.fetch_object, "asdf")
@@ -54,7 +54,7 @@ class PathTest(unittest.TestCase):
 
         test_obj_name = "asdf"
         self.assertIsInstance(self.path_mocked.fetch_object(test_obj_name), FSObject)
-        self.vfs.get_object.assert_called_once()
+        self.vfs.get_object.assert_called_once_with(test_obj_name)
         self.fs.get_object.assert_called_once_with(fs_obj_mock)
 
     def testWalk(self):
